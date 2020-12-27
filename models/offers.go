@@ -1,6 +1,8 @@
 package models
 
-type Offers []Offer
+type Offers struct {
+	Offer []Offer `json:"offers"`
+}
 
 type Offer struct {
 	CmOfferId    string `json:"cm_offer_id"`
