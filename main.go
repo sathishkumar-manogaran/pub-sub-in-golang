@@ -70,7 +70,6 @@ func main() {
 	},
 	}*/
 
-	////initialize the database
 	database.InitDB()
 
 	migrations.Migrate()
@@ -78,6 +77,5 @@ func main() {
 	publisher.Publisher()
 	subscriber.Consume()
 
-	///finally close the connection when you are done
 	defer database.DBCon.Close()
 }
