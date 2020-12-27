@@ -3,6 +3,7 @@ package database
 import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	log "github.com/sirupsen/logrus"
 )
 
 var (
@@ -15,7 +16,9 @@ func InitDB() {
 	DBCon, err = gorm.Open("mysql", "root:root@tcp(localhost:3306)/booking?charset=utf8&parseTime=true")
 
 	if err != nil {
-
-		panic("failed to connect database")
+		log.WithFields(log.Fields{
+			"msg":       err.Error(),
+			"errorCode": 500,
+		}).Panic("Failed To Connect Database")
 	}
 }
