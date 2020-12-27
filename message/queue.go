@@ -27,7 +27,8 @@ func InitChannel() {
 		}).Panic("could not establish connection with RabbitMQ")
 	}
 
-	Channel, err := connection.Channel()
+	channel, err := connection.Channel()
+	Channel = channel
 
 	if err != nil {
 		log.WithFields(log.Fields{

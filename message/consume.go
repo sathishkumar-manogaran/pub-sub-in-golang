@@ -33,7 +33,7 @@ func Consume() {
 			}).Fatal("Unable to decode the json")
 		}
 
-		fmt.Println(offers.Offer[0].Amenities)
+		fmt.Println(offers.Offer[0].Address)
 
 		msg.Ack(true)
 	}

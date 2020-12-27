@@ -20,39 +20,41 @@ type Offer struct {
 }
 
 type Hotel struct {
-	HotelId     string   `json:"hotel_id,primary_key"`
-	Name        string   `json:"name"`
-	Country     string   `json:"country"`
-	Address     string   `json:"address"`
-	Latitude    float64  `json:"latitude"`
-	Longitude   float64  `json:"longitude"`
-	Telephone   string   `json:"telephone"`
-	Amenities   []string `json:"amenities,blob"`
-	Description string   `json:"description"`
-	RoomCount   int8     `json:"room_count"`
-	Currency    string   `json:"currency"`
+	HotelId   string  `json:"hotel_id" gorm:"primary_key;size:10"`
+	Name      string  `json:"name"`
+	Country   string  `json:"country"`
+	Address   string  `json:"address"`
+	Latitude  float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
+	Telephone string  `json:"telephone"`
+	//Amenities   []string `json:"amenities" gorm:"-"`
+	Description string     `json:"description"`
+	RoomCount   int8       `json:"room_count"`
+	Currency    string     `json:"currency"`
+	Rooms       []Room     `gorm:"foreignKey:hotel_id"`
+	RatePlans   []RatePlan `gorm:"foreignKey:hotel_id"`
 }
 
 type Room struct {
-	HotelId     string `json:"hotel_id"`
-	RoomId      string `json:"room_id,primary_key"`
+	RoomId      string `json:"room_id" gorm:"primary_key"`
+	HotelId     string `json:"hotel_id" gorm:"size:10"`
 	Description string `json:"description"`
 	Name        string `json:"name"`
-	Capacity    `json:"capacity"`
+	//Capacity    `json:"capacity" gorm:"-"`
+}
+
+type RatePlan struct {
+	RatePlanId string `json:"rate_plan_id" gorm:"primary_key"`
+	HotelId    string `json:"hotel_id" gorm:"size:10"`
+	//CancellationPolicy []CancellationPolicy `json:"cancellation_policy" gorm:"-"`
+	Name string `json:"name"`
+	//OtherConditions    []string             `json:"other_conditions"`
+	MealPlan string `json:"meal_plan"`
 }
 
 type Capacity struct {
 	MaxAdults     int8 `json:"max_adults"`
 	ExtraChildren int8 `json:"extra_children"`
-}
-
-type RatePlan struct {
-	HotelId            string               `json:"hotel_id"`
-	RatePlanId         string               `json:"rate_plan_id,primary_key"`
-	CancellationPolicy []CancellationPolicy `json:"cancellation_policy"`
-	Name               string               `json:"name"`
-	OtherConditions    []string             `json:"other_conditions"`
-	MealPlan           string               `json:"meal_plan"`
 }
 
 type CancellationPolicy struct {

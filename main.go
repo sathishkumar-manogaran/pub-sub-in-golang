@@ -23,6 +23,6 @@ func main() {
 	message.Publisher()
 	message.Consume()
 
-	defer database.DBCon.Close()
+	//defer database.DBCon.Close()
 	defer message.Channel.Close()
 }
