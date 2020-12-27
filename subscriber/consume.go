@@ -3,7 +3,7 @@ package subscriber
 import (
 	"encoding/json"
 	"fmt"
-	. "github.com/sathishkumar-manogaran/pub-sub-in-golang/models"
+	"github.com/sathishkumar-manogaran/pub-sub-in-golang/models"
 	"github.com/streadway/amqp"
 	"log"
 	"os"
@@ -45,7 +45,7 @@ func Consume() {
 
 		j := msg.Body
 
-		var offers Offers
+		var offers models.Offers
 
 		err := json.Unmarshal(j, &offers)
 

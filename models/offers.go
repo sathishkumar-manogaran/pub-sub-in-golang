@@ -20,14 +20,14 @@ type Offer struct {
 }
 
 type Hotel struct {
-	HotelId     string   `json:"hotel_id"`
+	HotelId     string   `json:"hotel_id,primary_key"`
 	Name        string   `json:"name"`
 	Country     string   `json:"country"`
 	Address     string   `json:"address"`
 	Latitude    float64  `json:"latitude"`
 	Longitude   float64  `json:"longitude"`
 	Telephone   string   `json:"telephone"`
-	Amenities   []string `json:"amenities"`
+	Amenities   []string `json:"amenities,blob"`
 	Description string   `json:"description"`
 	RoomCount   int8     `json:"room_count"`
 	Currency    string   `json:"currency"`
@@ -35,7 +35,7 @@ type Hotel struct {
 
 type Room struct {
 	HotelId     string `json:"hotel_id"`
-	RoomId      string `json:"room_id"`
+	RoomId      string `json:"room_id,primary_key"`
 	Description string `json:"description"`
 	Name        string `json:"name"`
 	Capacity    `json:"capacity"`
@@ -48,7 +48,7 @@ type Capacity struct {
 
 type RatePlan struct {
 	HotelId            string               `json:"hotel_id"`
-	RatePlanId         string               `json:"rate_plan_id"`
+	RatePlanId         string               `json:"rate_plan_id,primary_key"`
 	CancellationPolicy []CancellationPolicy `json:"cancellation_policy"`
 	Name               string               `json:"name"`
 	OtherConditions    []string             `json:"other_conditions"`

@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
-	. "github.com/sathishkumar-manogaran/pub-sub-in-golang/publisher"
-	. "github.com/sathishkumar-manogaran/pub-sub-in-golang/subscriber"
+	"github.com/sathishkumar-manogaran/pub-sub-in-golang/database"
+	"github.com/sathishkumar-manogaran/pub-sub-in-golang/migrations"
+	"github.com/sathishkumar-manogaran/pub-sub-in-golang/publisher"
+	"github.com/sathishkumar-manogaran/pub-sub-in-golang/subscriber"
 )
 
 func main() {
@@ -68,7 +70,14 @@ func main() {
 	},
 	}*/
 
-	Publisher()
-	Consume()
+	////initialize the database
+	database.InitDB()
 
+	migrations.Migrate()
+
+	publisher.Publisher()
+	subscriber.Consume()
+
+	///finally close the connection when you are done
+	defer database.DBCon.Close()
 }
