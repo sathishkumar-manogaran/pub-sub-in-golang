@@ -1,16 +1,15 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"github.com/sathishkumar-manogaran/pub-sub-in-golang/models"
-	"log"
+	. "github.com/sathishkumar-manogaran/pub-sub-in-golang/publisher"
+	. "github.com/sathishkumar-manogaran/pub-sub-in-golang/subscriber"
 )
 
 func main() {
 	fmt.Println("Initializer")
 
-	offers := models.Offers{Offer: []models.Offer{{
+	/*offers := models.Offers{Offer: []models.Offer{{
 		CmOfferId: "8f6995366e854c9faf1d9f3d233702b8",
 		Hotel: models.Hotel{
 			HotelId:   "BH~46456",
@@ -67,16 +66,9 @@ func main() {
 		Fees:     []models.Fee{{Type: "CountyTax", Description: "COUNTY TAX PER STAY", Included: true, Percent: 17.5}},
 	},
 	},
-	}
+	}*/
 
-	// encode into JSON
-	b, err := json.Marshal(offers)
+	Publisher()
+	Consume()
 
-	if err != nil {
-		log.Fatalf("Unable to encode")
-	}
-
-	// Marshal returns []byte
-
-	fmt.Println(string(b))
 }
