@@ -35,7 +35,7 @@ func Publisher() {
       },
       "room": {
         "hotel_id": "BH~46456",
-        "room_id": "S2Q",
+        "room_id": "S2W",
         "description": "JUNIOR SUITES WITH 2 QUEEN BEDS",
         "name": "JUNIOR SUITES WITH 2 QUEEN BEDS",
         "capacity": {
@@ -45,7 +45,7 @@ func Publisher() {
       },
       "rate_plan": {
         "hotel_id": "BH~46456",
-        "rate_plan_id": "BAR",
+        "rate_plan_id": "BAX",
         "cancellation_policy": [
           {
             "type": "Free cancellation",
