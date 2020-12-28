@@ -8,7 +8,8 @@ import (
 
 func Migrate() {
 
-	err := database.DBCon.AutoMigrate(&models.Hotel{},
+	err := database.DBCon.AutoMigrate(
+		&models.Hotel{},
 		&models.Room{},
 		&models.RatePlan{},
 	)

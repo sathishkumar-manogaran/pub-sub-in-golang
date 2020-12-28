@@ -21,7 +21,7 @@ func main() {
 
 	message.InitChannel()
 	message.Publisher()
-	message.Consume()
+	message.ConnectConsumer()
 
 	//defer database.DBCon.Close()
 	defer message.Channel.Close()
