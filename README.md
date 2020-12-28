@@ -3,15 +3,20 @@
 **How it works?**
 
 * Run RabbitMQ in local with default username and password
-  `username: guest` `password: guest` `port: 5672`
+  
+        `username: guest` `password: guest` `port: 5672`
     * We can change this value in `queue.go`
 
+    
 * Run MySQL in local with default username and password
-    `username: root` `password: root` `port:3306`
+  
+        `username: root` `password: root` `port:3306`
     * We can change this value in `database.go`
     * Create _DB / Schema_ with a name **Booking**
-``create schema booking;``
+  
+        `create schema booking;`
 * Then run the `main.go` using go command `go run main.go`
+
 
 **Note:**   
 * This project support publisher and consumer both but for best interest Publisher portion is commented.
