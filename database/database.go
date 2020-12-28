@@ -1,10 +1,10 @@
 package database
 
 import (
+	log "github.com/sirupsen/logrus"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-
-	log "github.com/sirupsen/logrus"
+	"os"
 )
 
 var (
@@ -12,10 +12,15 @@ var (
 )
 
 func InitDB() {
+	// Get the connection string from the environment variable
+	url := os.Getenv("BOOKING_DB_URL")
+
+	if url == "" {
+		url = "root:root@tcp(localhost:3306)/booking"
+	}
 	var err error
 
-	//DBCon, err = gorm.Open("mysql", "root:root@tcp(localhost:3306)/booking?charset=utf8&parseTime=true")
-	dsn := "root:root@tcp(127.0.0.1:3306)/booking?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := url + "?charset=utf8mb4&parseTime=True&loc=Local"
 	DBCon, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {

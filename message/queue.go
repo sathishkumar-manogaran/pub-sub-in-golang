@@ -11,6 +11,14 @@ var (
 )
 
 func InitChannel() {
+	connection, err := connectToQueue()
+
+	getChannel(err, connection)
+
+	createExchangeQueue(err)
+}
+
+func connectToQueue() (*amqp.Connection, error) {
 	// Get the connection string from the environment variable
 	url := os.Getenv("AMQP_URL")
 
@@ -26,7 +34,10 @@ func InitChannel() {
 			"errorCode": 500,
 		}).Panic("could not establish connection with RabbitMQ")
 	}
+	return connection, err
+}
 
+func getChannel(err error, connection *amqp.Connection) {
 	channel, err := connection.Channel()
 	Channel = channel
 
@@ -36,7 +47,9 @@ func InitChannel() {
 			"errorCode": 500,
 		}).Panic("could not open RabbitMQ channel")
 	}
+}
 
+func createExchangeQueue(err error) {
 	err = Channel.ExchangeDeclare("events", "topic", true, false, false, false, nil)
 
 	if err != nil {

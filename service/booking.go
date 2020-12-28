@@ -4,37 +4,50 @@ import (
 	"fmt"
 	"github.com/sathishkumar-manogaran/pub-sub-in-golang/database"
 	"github.com/sathishkumar-manogaran/pub-sub-in-golang/models"
+	"gorm.io/gorm/clause"
 )
 
+type Repository interface {
+	Get(id string) (*models.Hotel, error)
+	Create(id string, name string) error
+	Hotel(*models.Hotel)
+}
+
 // Offers Iterate through offers and save / create values
-func Offers(offers models.Offers) {
+func Offers(offers *models.Offers) {
 	if offers.Offer != nil {
 		for _, v := range offers.Offer {
-			Hotel(v.Hotel)
-			Room(v.Room)
-			RatePlan(v.RatePlan)
+			Hotel(&v.Hotel)
+			Room(&v.Room)
+			RatePlan(&v.RatePlan)
 		}
 	}
 	//GetHotelValue()
 }
 
-func Hotel(hotel models.Hotel) {
-	find := database.DBCon.Where(&hotel, hotel.HotelId)
-	if 0 == find.RowsAffected {
-		database.DBCon.Create(&hotel)
+func Hotel(hotel *models.Hotel) {
+	result := database.DBCon.Find(&hotel)
+	if result.RowsAffected == 0 {
+		database.DBCon.Save(&hotel)
 	} else {
-		database.DBCon.Updates(&hotel)
+		database.DBCon.Clauses(clause.OnConflict{
+			UpdateAll: true,
+		}).Updates(&hotel)
 	}
+
 	fmt.Println(hotel)
 }
 
-func Room(room models.Room) {
-	find := database.DBCon.Where(&room, room.HotelId)
-	if 0 == find.RowsAffected {
-		database.DBCon.Create(&room)
+func Room(room *models.Room) {
+	result := database.DBCon.Find(&room)
+	if result.RowsAffected == 0 {
+		database.DBCon.Save(&room)
 	} else {
-		database.DBCon.Updates(&room)
+		database.DBCon.Clauses(clause.OnConflict{
+			UpdateAll: true,
+		}).Updates(&room)
 	}
+
 	fmt.Println(room)
 
 	/**
@@ -47,14 +60,15 @@ func Room(room models.Room) {
 	//fmt.Println("Room capacity:: ", result2.Capacity)
 }
 
-func RatePlan(ratePlan models.RatePlan) {
-	find := database.DBCon.Where(&ratePlan, ratePlan.HotelId)
-	if 0 == find.RowsAffected {
-		database.DBCon.Create(&ratePlan)
+func RatePlan(ratePlan *models.RatePlan) {
+	result := database.DBCon.Find(&ratePlan)
+	if result.RowsAffected == 0 {
+		database.DBCon.Save(&ratePlan)
 	} else {
-		database.DBCon.Updates(&ratePlan)
+		database.DBCon.Clauses(clause.OnConflict{
+			UpdateAll: true,
+		}).Updates(&ratePlan)
 	}
-	fmt.Println(ratePlan)
 
 	/**
 	Just for reference
